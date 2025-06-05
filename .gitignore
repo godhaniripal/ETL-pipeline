@@ -1,0 +1,54 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+
+# Log files
+*.log
+
+# Data files - raw and processed data (may contain large files)
+data/raw/
+data/processed/
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+
+# Streamlit cache
+.streamlit/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# SQLite database files (if applicable)
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
+
+# Cache directories
+.cache/
