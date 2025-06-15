@@ -10,6 +10,7 @@ function Show-Menu {
     Write-Host "3: Launch Streamlit Dashboard"
     Write-Host "4: Check Database Connection"
     Write-Host "5: Exit"
+    Write-Host "6: Run Optimized Pipeline"
     Write-Host "=============================================================="
 }
 
@@ -51,6 +52,14 @@ function Check-Database {
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
+# Function to run the optimized pipeline
+function Run-OptimizedPipeline {
+    Write-Host "Running Optimized Pipeline..."
+    python run_optimized_pipeline.py
+    Write-Host "Press any key to continue..."
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+
 # Main loop
 do {
     Show-Menu
@@ -65,6 +74,7 @@ do {
             Write-Host "Exiting..."
             exit 
         }
+        '6' { Run-OptimizedPipeline }
         default { 
             Write-Host "Invalid selection. Please try again."
             Write-Host "Press any key to continue..."

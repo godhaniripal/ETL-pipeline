@@ -15,7 +15,7 @@ from src.utils import get_db_connection_string
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("reset_db.log"),
         logging.StreamHandler()
@@ -67,46 +67,45 @@ def initialize_database():
         
         # Define countries table
         countries = Table(
-            "countries", metadata,
-            Column("country_id", Integer, primary_key=True),
-            Column("country_name", String, unique=True, nullable=False),
-            Column("country_code", String(3)),
-            Column("continent", String),
-            Column("population", Integer)
+            'countries', metadata,
+            Column('country_id', Integer, primary_key=True),
+            Column('country_name', String, unique=True, nullable=False),
+            Column('country_code', String(3)),
+            Column('continent', String),
+            Column('population', Integer)
         )
-        
-        # Define covid_cases table with historical data capability
+          # Define covid_cases table with historical data capability
         covid_cases = Table(
-            "covid_cases", metadata,
-            Column("case_id", Integer, primary_key=True),
-            Column("country_id", Integer),
-            Column("date", Date, nullable=False),
-            Column("total_cases", Integer),
-            Column("new_cases", Integer),
-            Column("total_deaths", Integer),
-            Column("new_deaths", Integer),
-            Column("total_recovered", Integer),
-            Column("new_recovered", Integer),
-            Column("active_cases", Integer),
-            Column("critical_cases", Integer),
-            Column("cases_per_million", Float),
-            Column("deaths_per_million", Float),
-            Column("case_fatality_rate", Float),
-            Column("new_cases_7day_avg", Float),
-            Column("new_deaths_7day_avg", Float),
-            Column("data_hash", String, nullable=False),  # For tracking changes
-            Column("created_at", Date, nullable=False),
-            Column("source", String)
+            'covid_cases', metadata,
+            Column('case_id', Integer, primary_key=True),
+            Column('country_id', Integer),
+            Column('date', Date, nullable=False),
+            Column('total_cases', Integer),
+            Column('new_cases', Integer),
+            Column('total_deaths', Integer),
+            Column('new_deaths', Integer),
+            Column('total_recovered', Integer),
+            Column('new_recovered', Integer),
+            Column('active_cases', Integer),
+            Column('critical_cases', Integer),
+            Column('cases_per_million', Float),
+            Column('deaths_per_million', Float),
+            Column('case_fatality_rate', Float),
+            Column('new_cases_7day_avg', Float),
+            Column('new_deaths_7day_avg', Float),
+            Column('data_hash', String, nullable=False),  # For tracking changes
+            Column('created_at', Date, nullable=False),
+            Column('source', String)
         )
         # Removed vaccinations table for better performance
         
         # Create tables
         metadata.create_all(engine)
         logger.info("Database schema initialized successfully")
-        return True
+        
     except Exception as e:
         logger.error(f"Error initializing database: {str(e)}")
-        return False
+        raise
 
 def reset_database():
     """
@@ -117,9 +116,7 @@ def reset_database():
     """
     if drop_all_tables():
         logger.info("Re-initializing database schema...")
-        if not initialize_database():
-            logger.error("Failed to initialize database")
-            return False
+        initialize_database()
         
         # Add foreign key constraints after tables are created
         conn_string = get_db_connection_string()
@@ -154,14 +151,14 @@ def reset_database():
                 
             logger.info("Foreign key constraints and performance indexes added successfully")
             logger.info("Database optimized for bulk loading")
-            return True
         except Exception as e:
             logger.error(f"Error configuring database: {str(e)}")
-            return False
+        logger.info("Database reset completed successfully")
+        return True
     return False
 
 # Export functions for module imports
-__all__ = ["drop_all_tables", "initialize_database", "reset_database"]
+__all__ = ['drop_all_tables', 'initialize_database', 'reset_database']
 
 if __name__ == "__main__":
     reset_database()

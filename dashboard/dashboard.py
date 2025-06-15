@@ -566,11 +566,11 @@ def main():
     # Check for page refresh flags
     if 'data_uploaded' in st.session_state and st.session_state.data_uploaded:
         st.session_state.data_uploaded = False
-        st.experimental_rerun()
+        st.rerun()
     
     if 'data_refreshed' in st.session_state and st.session_state.data_refreshed:
         st.session_state.data_refreshed = False
-        st.experimental_rerun()
+        st.rerun()
     
     # Sidebar options
     st.sidebar.header("Data Sources")
